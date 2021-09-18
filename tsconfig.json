@@ -15,6 +15,9 @@
     "paths": {
       "@modules": [
         "./src/modules/"
+      ],
+      "@configs": [
+        "./src/configs/"
       ]
     }
   }
