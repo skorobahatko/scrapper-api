@@ -29,9 +29,8 @@ export class UserService {
 
   // Getting one User row by id.
   async getById(id: string): Promise<UserDocument | undefined> {
-    console.log('id', id);
     try {
-      return this.userModel.findOne({ id }).lean();
+      return this.userModel.findOne({ _id: id }).lean();
     } catch (err) {
       throw new Error(err.message || 'Something goes wrong while get MongoDB request');
     }

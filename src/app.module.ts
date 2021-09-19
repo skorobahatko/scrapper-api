@@ -4,14 +4,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { config } from '@configs';
-import { UserModule } from './modules';
+import { DatabaseModule } from './modules';
 
 @Module({
   imports: [
     MongooseModule.forRoot(config.MONGODB_HOST, {
       connectionName: config.MONGODB_CONNECTION_NAME,
     }),
-    UserModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
