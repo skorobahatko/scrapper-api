@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 
-export interface User {
-  id: string;
+export interface UserInterface {
+  _id: string;
 
   username: string;
 
@@ -9,4 +9,10 @@ export interface User {
   updated_at: string;
 }
 
-export type UserDocument = User & Document;
+export interface CreateUserInterface {
+  username: string;
+
+  _id?: string
+}
+
+export type UserDocument = UserInterface & Document;
