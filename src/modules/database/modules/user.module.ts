@@ -1,9 +1,20 @@
-import { Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
 import { config } from '@configs';
-@Module({
-  imports: [MongooseModule.forFeature([{name: '', schema: {}}], config.MONGODB_CONNECTION_NAME)] // TODO add user schema and name
-})
+import { User, UserSchema } from '../schemas/user-schema';
+import { UserService } from '../services/user.service';
+import { UserController } from 'src/modules';
 
-export class UserModule {};
+// MongoDB User module defining.
+@Module({
+  imports: [
+    MongooseModule.forFeature(
+      [{ name: User.name, schema: UserSchema }],
+      config.MONGODB_CONNECTION_NAME,
+    ),
+  ], // TODO check forFeatureAsync
+  // controllers: [UserController],
+  providers: [UserService],
+})
+export class UserModule {}

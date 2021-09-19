@@ -18,6 +18,12 @@
       ],
       "@configs": [
         "./src/configs/"
+      ],
+      "@helpers": [
+        "./src/helpers/"
+      ],
+      "@models": [
+        "./src/models/"
       ]
     }
   }
