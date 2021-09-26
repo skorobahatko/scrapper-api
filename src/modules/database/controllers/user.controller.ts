@@ -9,6 +9,25 @@ import { UserService } from '../services/user.service';
 class UserController {
   constructor(private userService: UserService) {}
 
+  @Get()
+  async getAllUsers() {
+    const allUsers = await this.userService.getAll();
+
+    if (allUsers?.length) {
+      return {
+        data: allUsers,
+        statusCode: 200,
+        message: 'Users executed successfully.'
+      }
+    } else {
+      return {
+        data: null,
+        statusCode: 404,
+        message: 'No users found'
+      }
+    }
+  }
+
   @Get('/:id')
   async getById(@Param('id') id: string) {
     const user = await this.userService.getById(id);

@@ -37,6 +37,15 @@ export class UserService {
     return updatedUserInterface;
   }
 
+  // Getting all users.
+  async getAll() {
+    try {
+      return this.userModel.find();
+    } catch(err) {
+      throw new Error(err.message || 'Something goes wrong while get MongoDB request');
+    }
+  }
+
   // Getting one User row by id.
   async getById(_id: string): Promise<UserDocument | undefined> {
     try {
