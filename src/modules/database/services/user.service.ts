@@ -41,7 +41,7 @@ export class UserService {
   async getAll() {
     try {
       return this.userModel.find();
-    } catch(err) {
+    } catch (err) {
       throw new Error(err.message || 'Something goes wrong while get MongoDB request');
     }
   }
@@ -58,7 +58,11 @@ export class UserService {
   // Creating new user using mongodb UserModel.
   async create(user: CreateUserInterface) {
     try {
-      return new this.userModel(this.insertTimeStamps(user));
+      const newUser = new this.userModel(this.insertTimeStamps(user));
+
+      newUser.save();
+
+      return newUser;
     } catch (err) {
       throw new Error(err.message || 'Something goes wrong while create MongoDB request');
     }

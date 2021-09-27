@@ -1,11 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 // MongoDB User model schema defining.
-@Schema({collection: 'scrapper-api'})
+@Schema({ collection: 'scrapper-api' })
 export class User {
-  @Prop({ required: true })
-  id: string;
-
   @Prop({ required: true })
   username: string;
 
@@ -15,4 +12,4 @@ export class User {
   updated_at: string;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User)
+export const UserSchema = SchemaFactory.createForClass(User);

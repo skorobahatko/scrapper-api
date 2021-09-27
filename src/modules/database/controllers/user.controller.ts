@@ -13,87 +13,55 @@ class UserController {
   async getAllUsers() {
     const allUsers = await this.userService.getAll();
 
-    if (allUsers?.length) {
-      return {
-        data: allUsers,
-        statusCode: 200,
-        message: 'Users executed successfully.'
-      }
-    } else {
-      return {
-        data: null,
-        statusCode: 404,
-        message: 'No users found'
-      }
-    }
+    return {
+      data: allUsers,
+      statusCode: 200,
+      message: 'Successfull request.',
+    };
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
     const user = await this.userService.getById(id);
 
-    if (user) {
-      return {
-        data: user,
-        statusCode: 200,
-        message: 'User successfully executed',
-      };
-    } else {
-      return {
-        data: null,
-        statusCode: 404,
-        message: `User with id - "${id}" not found`,
-      };
-    }
+    return {
+      data: user,
+      statusCode: 200,
+      message: 'Successfull request.',
+    };
   }
 
   @Delete('/:id')
   async deleteById(@Param('id') id: string) {
     const deletedResult = await this.userService.deleteById(id);
 
-    if (deletedResult.deletedCount) {
-      return {
-        data: null,
-        statusCode: 200,
-        message: 'User successfully deleted',
-      };
-    } else {
-      return {
-        data: null,
-        statusCode: 404,
-        message: `User with id - "${id}" not found`,
-      };
-    }
+    return {
+      data: deletedResult,
+      statusCode: 200,
+      message: 'Successfull request.',
+    };
   }
 
   @Post()
   async create(@Body() user: CreateUserInterface) {
-    const newUser = await this.userService.create({ ...user, _id: uuidv4() });
+    const newUser = await this.userService.create(user);
 
-    if (newUser) {
-      return {
-        data: newUser,
-        statusCode: 200,
-        message: 'User successfully created.',
-      };
-    } else {
-      return {
-        data: null,
-        statusCode: 500,
-        message: 'Something goest wrong while creating new user.',
-      };
-    }
+    return {
+      data: newUser,
+      statusCode: 200,
+      message: 'Successfull request.',
+    };
   }
 
   @Put('/:id')
   async update(@Param('id') _id: string, @Body() user: UserInterface) {
     const updateResult = await this.userService.update({ ...user, _id });
 
-    if (!updateResult || !updateResult.modifiedCount) {
+    if (!updateResult) {
       return {
         data: null,
-        statusCode: 404,
-        errMessage: 'User not found',
+        statusCode: 200,
+        errMessage: 'Unsuccessfull request.',
       };
     }
 
@@ -102,7 +70,7 @@ class UserController {
     return {
       data: updatedUser,
       statusCode: 200,
-      message: 'User successfully updated',
+      message: 'Successfull request.',
     };
   }
 }

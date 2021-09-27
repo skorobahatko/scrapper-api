@@ -11,8 +11,6 @@ export interface UserInterface {
 
 export interface CreateUserInterface {
   username: string;
-
-  _id?: string
 }
 
 export type UserDocument = UserInterface & Document;
