@@ -1,16 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { initialScrapperProcess } from '@helpers';
+import { pureResponse } from '@helpers';
+import { ScrapperTextResponse } from 'src/helpers/scrapper/text-response';
 
 @Injectable()
 export class ScrapperService {
   constructor() {}
 
-  async getResponse(url: string, selectors: string[]) {
+  async getPure(url: string) {
     try {
-      return await initialScrapperProcess(url, selectors);
+      return await pureResponse(url);
     } catch (err) {
-      console.error(err.message);
-      process.exit(1);
+      throw new Error(err.message);
+    }
+  }
+
+  async getText(url: string) {
+    try {
+      const instance = new ScrapperTextResponse(url);
+
+      return instance.get();
+    } catch (err) {
+      throw new Error(err.message);
     }
   }
 }

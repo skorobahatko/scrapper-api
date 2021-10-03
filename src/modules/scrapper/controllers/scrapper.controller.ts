@@ -6,19 +6,30 @@ export class ScrapperController {
   constructor(private scrapperService: ScrapperService) {}
 
   @Get('/pure')
-  async GetPureScrapp(@Body() body: { url?: string; selectors?: string[] }) {
-    if (body?.url && body?.selectors?.length) {
-      const result = await this.scrapperService.getResponse(body.url, body.selectors);
+  async GetPureScrapp(@Body() body: { url?: string }) {
+    let result: string | null = null;
 
-      return {
-        statusCode: 200,
-        data: result,
-      };
-    } else {
-      return {
-        data: null,
-        statusCode: 200,
-      };
+    if (body?.url) {
+      result = await this.scrapperService.getPure(body.url);
     }
+
+    return {
+      statusCode: 200,
+      data: result,
+    };
+  }
+
+  @Get('/text')
+  async GetTextScrapp(@Body() body: { url?: string }) {
+    let result: string[] = [];
+
+    if (body?.url) {
+      result = await this.scrapperService.getText(body.url);
+    }
+
+    return {
+      statusCode: 200,
+      data: result.length ? result : null,
+    };
   }
 }

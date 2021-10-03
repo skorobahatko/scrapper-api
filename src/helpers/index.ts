@@ -1,2 +1,2 @@
-export * from './main';
+export * from './scrapper';
 export * from './request';
